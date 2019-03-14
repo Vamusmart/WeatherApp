@@ -1,21 +1,17 @@
 let request = require("request");
-const chalk = require('chalk');
+const chalk = require("chalk");
 
+//In the terminal
+//nmp install
+//npm install chalk
 
-//basic colors
-console.log(chalk.cyan('hey, this is cyan'))
-console.log(chalk.green('green '))
-console.log(chalk.yellow('I am yellow'))
-console.log(chalk.red('I am magenta'))
+//basic colors testing chalk
+// console.log(chalk.cyan('hey, this is cyan'))
+// console.log(chalk.green('green '))
+// console.log(chalk.yellow('I am yellow'))
+// console.log(chalk.red('I am magenta'))
 
-
-
-
-
-
-
-//weather from darksky
-
+//Weather from darksky.net
 const weather = (latitude, longitude, callback) => {
   const url = `https://api.darksky.net/forecast/11115f922bc48223ebfcc13d04c1df40/${latitude},${longitude}?units=si`;
 
@@ -26,57 +22,54 @@ const weather = (latitude, longitude, callback) => {
       const data = response.body;
       let icon = data.currently.icon;
 
-
       switch (icon) {
-        case 'clear-night':
-        case 'clear-day':
-            console.log(chalk.green('Beautiful Day'))
-            break;
-        case 'rain':
-            console.log(chalk.gray('Rainy weather'))
-            break;
-        case 'snow':
-            console.log(chalk.white('Snowy weather'))
-            break;
-        case 'sleet':
-            console.log(chalk.gray('sleet'))
-            break;
-        case 'wind':
-            console.log(chalk.yellow('Windy'))
-            break;
-        case 'fog':
-            console.log(chalk.gray('fog'))
-            break;
-        case 'cloudy':
-            console.log(chalk.gray('cloudy'))
-            break;
-        case 'partly-cloudy-night':
-        case 'partly-cloudy-day':
-            console.log(chalk.gray('Partly cloudy weather'))
-            break;
-        case 'hail':
-            console.log(chalk.bgMagneta('hail'))
-            break;
-        case 'thunderstorm':
-            console.log(chalk.red('Thunderstorm'))
-            break;
-        case 'tornado':
-            console.log(chalk.bgRed('Tornado'))
-            break;
+        case "clear-night":
+        case "clear-day":
+          console.log(chalk.green("Beautiful Day"));
+          break;
+        case "rain":
+          console.log(chalk.gray("Rainy weather"));
+          break;
+        case "snow":
+          console.log(chalk.white("Snowy weather"));
+          break;
+        case "sleet":
+          console.log(chalk.gray("sleet"));
+          break;
+        case "wind":
+          console.log(chalk.yellow("Windy"));
+          break;
+        case "fog":
+          console.log(chalk.gray("fog"));
+          break;
+        case "cloudy":
+          console.log(chalk.gray("cloudy"));
+          break;
+        case "partly-cloudy-night":
+        case "partly-cloudy-day":
+          console.log(chalk.gray("Partly cloudy weather"));
+          break;
+        case "hail":
+          console.log(chalk.bgMagneta("hail"));
+          break;
+        case "thunderstorm":
+          console.log(chalk.red("Thunderstorm"));
+          break;
+        case "tornado":
+          console.log(chalk.bgRed("Tornado"));
+          break;
 
         default:
-
-            console.log("Error");
+          console.log("Error");
       }
-       
     }
   });
 };
 
+//Latitude and longitude from mapbox
 const geocode = (address, callback) => {
   const url2 = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=pk.eyJ1Ijoicm9ja2V0dG93biIsImEiOiJjanQ2ZmEyZnowZjloNDRtd2VtemR3dzZmIn0.JLgxwoeoCASsZ8WDYI3-5A`;
 
-  //latitude and longitude from mapbox
   request({ url: url2, json: true }, (error, response) => {
     if (error) {
       callback("Ooopsss, that's an error", undefined);
@@ -92,8 +85,8 @@ const geocode = (address, callback) => {
   });
 };
 
-
-geocode("clinton", (error, data) => {
+//Function that takes a city like "Chester" and gives you the latitude and the logitude and how the weather looks like in this specific moment in that location.
+geocode("Chester", (error, data) => {
   let latitude = data.latitude;
   let longitude = data.longitude;
   console.log("Error:", error);
